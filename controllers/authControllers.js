@@ -28,17 +28,36 @@ authController.signupControllerPost = async (req, res) => {
         res.render('pages/auth/signup', {title: 'Create A New User'});
     } catch (e) {
         console.log('Data Insert Failed: ' + e);
-        res.status(500).json({error: 'Internal Server Error'})
+        res.status(500).json({error: 'Internal Server Error'});
     }
 };
 
 //login view
 authController.loginControllerGet = (req, res) => {
-
+    res.render('pages/auth/login', {title: 'Login'})
 };
 
 //login logic
-authController.loginControllerPost = (req, res) => {
+authController.loginControllerPost = async (req, res) => {
+    const {email, password} = req.body;
+
+    try {
+        const user = await User.findOne({email: email});
+
+        if(!user){
+           return res.status(505).json({"error": 'Invalid Email & Password'});
+        }
+        const match = await bcrypt.compare(password, user.password);
+
+        if(!match){
+            return res.status(505).json({"error": 'Invalid Email & Password'});
+        }
+        
+        console.log(user);
+        res.render('pages/auth/login', {title: 'Login'});
+    } catch (error) {
+        res.status(500).json({error: 'Internal Server Error'})
+    }
 
 };
 

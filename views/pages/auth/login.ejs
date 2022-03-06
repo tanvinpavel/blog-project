@@ -1,19 +1,27 @@
 <%- include('../../partials/header.ejs') %>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card my-5">
-              <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                b5
-              </div>
+<div class="container full-height">
+  <div class="row justify-content-center">
+      <div class="col-md-6">
+          <div class="card shadow my-5">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Login</h5>
+              <form action="/auth/login" method="post">
+                  <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" name="email" id="email" placeholder="Enter a uniq user name" class="form-control">
+                  </div>
+                  <div class="mb-3">
+                      <label for="pass" class="form-label">Password</label>
+                      <input type="password" name="password" id="pass" placeholder="Enter you password" class="form-control">
+                  </div>
+                  <input type="submit" class="btn btn-secondary" value="Submit">
+              </form>
+              <a href="/auth/signup" class="mt-3 d-inline-block">Don't have an account? Signup here</a>
             </div>
-        </div>
-    </div>
+          </div>
+      </div>
+  </div>
 </div>
 
 <%- include('../../partials/footer.ejs') %>
