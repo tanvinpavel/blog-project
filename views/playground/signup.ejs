@@ -1,0 +1,35 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container full-height">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow my-5">
+              <div class="card-body">
+                <h5 class="card-title">Playground</h5>
+                <form action="/playground/validator/signup" method="post">
+                    <div class="mb-3">
+                        <label for="user-name" class="form-label">User Name</label>
+                        <input type="text" name="username" id="user-name" placeholder="Enter a uniq user name" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Enter a uniq user name" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pass" class="form-label">Password</label>
+                        <input type="password" name="password" id="pass" placeholder="Enter you password" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm-pass" class="form-label">Confirm Password</label>
+                        <input type="password" name="confirmPass" id="confirm-pass" placeholder="Re Enter Password" class="form-control">
+                    </div>
+                    <input type="submit" class="btn btn-secondary" value="Submit">
+                </form>
+                <a href="/auth/login" class="my-3 d-inline-block">Already have an account? Login here</a>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>
