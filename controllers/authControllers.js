@@ -45,27 +45,32 @@ authController.signupControllerPost = async (req, res) => {
 
 //login view
 authController.loginControllerGet = (req, res) => {
-    res.render('pages/auth/login', {title: 'Login'})
+    res.render('pages/auth/login', {title: 'Login', error: {}, notMatch: null})
 };
 
 //login logic
 authController.loginControllerPost = async (req, res) => {
     const {email, password} = req.body;
 
+    const result = validationResult(req).formatWith(errorFormatter);
+    if(!result.isEmpty()){
+        return res.render('pages/auth/login', {title: 'Login', error: result.mapped(), notMatch: null});
+    }
+
     try {
         const user = await User.findOne({email: email});
 
         if(!user){
-           return res.status(505).json({"error": 'Invalid Email & Password'});
+           return res.render('pages/auth/login', {title: 'Login', error: result.mapped(), notMatch: 'Invalid Email & Password'});
         }
         const match = await bcrypt.compare(password, user.password);
 
         if(!match){
-            return res.status(505).json({"error": 'Invalid Email & Password'});
+            return res.render('pages/auth/login', {title: 'Login', error: result.mapped(), notMatch: 'Invalid Email & Password'});
         }
         
         console.log(user);
-        res.render('pages/auth/login', {title: 'Login'});
+        res.render('pages/auth/login', {title: 'Login', error:{}, 'notMatch': null});
     } catch (error) {
         res.status(500).json({error: 'Internal Server Error'})
     }
