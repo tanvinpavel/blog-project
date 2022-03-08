@@ -1,5 +1,5 @@
-.full-height {
-  height: 83vh;
+.body-height{
+  min-height: 604px;
 }
 footer {
   background-color: #222222;

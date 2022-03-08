@@ -1,6 +1,6 @@
 <%- include('../../partials/header.ejs') %>
 
-<div class="container full-height">
+<div class="container body-height">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow my-5">
@@ -9,19 +9,23 @@
                 <form action="/auth/signup" method="post">
                     <div class="mb-3">
                         <label for="user-name" class="form-label">User Name</label>
-                        <input type="text" name="username" id="user-name" placeholder="Enter a uniq user name" class="form-control">
+                        <input type="text" name="username" id="user-name" placeholder="Enter a uniq user name" class="form-control <%= error.username && 'is-invalid' %>" value="<%= value.username && value.username %>">
+                        <small class="invalid-feedback"><%= error.username && error.username %></small>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" id="email" placeholder="Enter a uniq user name" class="form-control">
+                        <input type="email" name="email" id="email" placeholder="Enter a uniq user name" class="form-control <%= error.email && 'is-invalid' %>" value="<%= value.email && value.email %>">
+                        <small class="invalid-feedback"><%= error.email && error.email %></small>
                     </div>
                     <div class="mb-3">
                         <label for="pass" class="form-label">Password</label>
-                        <input type="password" name="password" id="pass" placeholder="Enter you password" class="form-control">
+                        <input type="password" name="password" id="pass" placeholder="Enter you password" class="form-control  <%= error.password && 'is-invalid' %>"  value="<%= value.password && value.password %>">
+                        <small class="invalid-feedback"><%= error.password && error.password %></small>
                     </div>
                     <div class="mb-3">
                         <label for="confirm-pass" class="form-label">Confirm Password</label>
-                        <input type="password" name="confirmPass" id="confirm-pass" placeholder="Re-Enter Password" class="form-control">
+                        <input type="password" name="confirmPass" id="confirm-pass" placeholder="Renter Password" class="form-control  <%= error.confirmPass && 'is-invalid' %>">
+                        <small class="invalid-feedback"><%= error.confirmPass && error.confirmPass %></small>
                     </div>
                     <input type="submit" class="btn btn-secondary" value="Submit">
                 </form>

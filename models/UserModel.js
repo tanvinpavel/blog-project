@@ -16,6 +16,7 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true,
+        minlength: 8
     },
     profile: {
         type: Schema.Types.ObjectId,
@@ -25,6 +26,5 @@ const UserSchema = new Schema({
     timestamps: true,
 });
 
-const User = model('user', UserSchema);
+module.exports = model('user', UserSchema);
 
-module.exports = User;
