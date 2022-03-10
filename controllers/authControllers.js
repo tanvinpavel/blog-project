@@ -10,6 +10,7 @@ const authController = {};
 
 //singUp view
 authController.signupControllerGet = (req, res) => {
+    // console.log(req.isLoggedIn, req.User);
     res.render('pages/auth/signup', {title: 'Create A New Account', error: {}, value: {}});
 };
 
@@ -35,7 +36,7 @@ authController.signupControllerPost = async (req, res) => {
         });
 
         await user.save();
-        console.log('Data Insert Successfully');
+        console.log('User Signup Successfully');
         res.render('pages/auth/signup', {title: 'Create A New User', error: {}, value: {}});
     } catch (e) {
         console.log('Data Insert Failed: ' + e);
@@ -45,6 +46,8 @@ authController.signupControllerPost = async (req, res) => {
 
 //login view
 authController.loginControllerGet = (req, res) => {
+    // console.log(req.session.isLoggedIn, req.session.user);
+
     res.render('pages/auth/login', {title: 'Login', error: {}, notMatch: null})
 };
 
@@ -52,6 +55,7 @@ authController.loginControllerGet = (req, res) => {
 authController.loginControllerPost = async (req, res) => {
     const {email, password} = req.body;
 
+    //input validation
     const result = validationResult(req).formatWith(errorFormatter);
     if(!result.isEmpty()){
         return res.render('pages/auth/login', {title: 'Login', error: result.mapped(), notMatch: null});
@@ -69,7 +73,8 @@ authController.loginControllerPost = async (req, res) => {
             return res.render('pages/auth/login', {title: 'Login', error: result.mapped(), notMatch: 'Invalid Email & Password'});
         }
         
-        console.log(user);
+        req.session.isLoggedIn = true;
+        req.session.user = user;
         res.render('pages/auth/login', {title: 'Login', error:{}, 'notMatch': null});
     } catch (error) {
         res.status(500).json({error: 'Internal Server Error'})

@@ -1,5 +1,6 @@
 const express = require('express');
 const authController = require('../controllers/authControllers');
+//validator middleware
 const signupValidator = require('../validator/signupValidator');
 const loginValidator = require('../validator/loginValidator');
 
