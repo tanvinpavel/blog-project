@@ -75,7 +75,14 @@ authController.loginControllerPost = async (req, res) => {
         
         req.session.isLoggedIn = true;
         req.session.user = user;
-        res.render('pages/auth/login', {title: 'Login', error:{}, 'notMatch': null});
+        req.session.save((e) => {
+            if(e){
+                console.log(e);
+                return res.send(e);
+            }
+        })
+
+        res.redirect('/user/dashboard');
     } catch (error) {
         res.status(500).json({error: 'Internal Server Error'})
     }
@@ -84,7 +91,13 @@ authController.loginControllerPost = async (req, res) => {
 
 //log out logic
 authController.logoutController = (req, res) => {
-
+    req.session.destroy((e)=>{
+        if(e){
+            console.log(e);
+            return res.send(e);
+        }
+        res.redirect('/auth/login');
+    })
 };
 
 module.exports = authController;

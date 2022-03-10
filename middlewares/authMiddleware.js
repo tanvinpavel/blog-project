@@ -16,4 +16,20 @@ exports.bindUserWithRequest = () => {
             return next();
         }
     }
+};
+
+//if user is not loggedIn
+exports.isAuthenticated = (req, res, next) => {
+    if(!req.session.isLoggedIn){
+        return res.redirect('/auth/login');
+    }
+    next();
+}
+
+//if user already loggedIn
+exports.alreadyLoggedIn = (req, res, next) => {
+    if(req.isLoggedIn){
+        return res.redirect('/user/dashboard');
+    }
+    next();
 }

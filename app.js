@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const authRoute = require('./routes/authRoutes');
+const dashboardRoute = require('./routes/dashboardRoutes');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const {bindUserWithRequest} = require('./middlewares/authMiddleware');
@@ -47,6 +48,7 @@ app.use(middleware);
 
 //routes
 app.use('/auth', authRoute);
+app.use('/user', dashboardRoute);
 
 //global variables
 const PORT = process.env.APPLICATION_PORT || 4000;
