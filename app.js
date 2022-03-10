@@ -57,6 +57,11 @@ app.get('/', (req, res) => {
     res.json('this is home');
 })
 
+//404 error handler
+app.use((req, res, next) => {
+    res.status(404).render('partials/notFound');
+})
+
 //Database Connection
 mongoose.connect('mongodb://localhost/blog_posts', {useNewUrlParser: true, useUnifiedTopology: true, family: 4})
     .then(()=>{
